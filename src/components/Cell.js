@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 // styles
 import '../styles/cell.scss'
 
+/**
+ * @param {object} state - initial state
+ */
 const mapStateToProps = state => {
   return {
     board: state.board,
@@ -13,20 +16,17 @@ const mapStateToProps = state => {
 }
 
 const Cell = props => {
-  const replaceColor = el => {
+  /**
+   * Replace two close tiles only if there are 3 match
+   * @param {object} el
+   */
+  const replaceTiles = el => {
     const board = props.board
     const firstCell = props.firstCell
     const secondCell = {
       id: el.target.id,
       value: props.value
     }
-
-    console.log(props)
-    // console.log(el.target.value);
-
-    // console.log(board)
-    // console.log(firstCell)
-    // console.log(secondCell)
 
     if (!firstCell.value) {
       return {
@@ -37,9 +37,6 @@ const Cell = props => {
         }
       }
     }
-
-    // console.log(firstCell.id)
-    // console.log(secondCell.value)
 
     board.splice(firstCell.id, 1, secondCell.value)
     board.splice(secondCell.id, 1, firstCell.value)
@@ -53,8 +50,8 @@ const Cell = props => {
   return (
     <div
       id={props.id}
-      className={`cell ${props.firstCell.value ? 'selected' : ''}`}
-      onClick={el => props.dispatch(replaceColor(el))}
+      className={`cell ${parseInt(props.firstCell.id) === props.id ? 'selected' : ''}`}
+      onClick={el => props.dispatch(replaceTiles(el))}
     >
       {props.value}
     </div>

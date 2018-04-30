@@ -18,7 +18,7 @@ const Board = props => {
         <Cell
           key={i}
           id={i}
-          value={cell}
+          value={cell.toString()}
         />
       )}
     </div>

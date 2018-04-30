@@ -7,7 +7,10 @@ import { Provider } from 'react-redux'
 import Board from './components/Board'
 
 import reducer from './config/reducer'
-const store = createStore(reducer)
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 const App = () => (
   <Provider store={store}>
