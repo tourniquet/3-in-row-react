@@ -18,7 +18,7 @@ const mapStateToProps = state => {
 const Cell = props => {
   /**
    * Replace two close tiles only if there are 3 match
-   * @param {object} el
+   * @param {object} el - cell as a single element
    */
   const replaceTiles = el => {
     const board = props.board
@@ -38,8 +38,9 @@ const Cell = props => {
       }
     }
 
-    board.splice(firstCell.id, 1, secondCell.value)
-    board.splice(secondCell.id, 1, firstCell.value)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    // Swapping variables
+    ;[board[firstCell.id], board[secondCell.id]] = [board[secondCell.id], board[firstCell.id]]
 
     return {
       type: 'REPLACE_TILES',
